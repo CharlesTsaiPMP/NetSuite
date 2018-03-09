@@ -13,7 +13,7 @@ function(search) {
 	const UP_TYPE   = 'customrecord_upy_profile';
 	const PS_TYPE   = 'customrecord_upy_profile_skill';
 	const PREFIX    = 'custrecord_upy_profile_';
-	const EMAIL     = 'upyaprof@upaysolution.com';
+	const EMAIL     = 'upyaprof@xxx.com';
 	const PCD       = '4Internal0nly!';
 	const P_FOLDER  = 'Documents and Files';
 	const C_FOLDER  = 'Portrait';

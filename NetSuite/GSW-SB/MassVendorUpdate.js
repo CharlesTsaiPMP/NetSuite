@@ -23,16 +23,14 @@ function(widget, record, runtime, search) {
     function onRequest(context) {
     	const logHead = function(type) { return 'SU:MVU:'+type; };
     	const GSWACTID = 284589;
-    	const ISGSW = function() { return runtime.accountId == GSWACTID; }();
+    	const ISGSW = runtime.accountId == GSWACTID;
     	const SUBLIST = 'submachine';
     	const REPSUBFLD = 'representingsubsidiary';
     	const SUBFLD = 'subsidiary';
     	const DONEFLD = 'custentity_processed';
     	const RECCNT = 25;
-    	const allSubIds = function() {
-			return ISGSW? [2,3,4,5,6,8,10,12,13,14,17,18,20,21,22,23,24,27]: // GSW
-						  [1,3,4,5,6,8,9,10,11,12,15,16,17,18,20,21];		 // Upaya
-		}();
+    	const allSubIds = ISGSW? [2,3,4,5,6,8,10,12,13,14,17,18,20,21,22,23,24,27]: // GSW
+    							 [1,3,4,5,6,8,9,10,11,12,15,16,17,18,20,21];		 // Upaya
     	const toContinue = function() {
 			// for small-scale testing in GSW
 			return /* ISGSW && procIds.length >= 50? false :*/ true;
