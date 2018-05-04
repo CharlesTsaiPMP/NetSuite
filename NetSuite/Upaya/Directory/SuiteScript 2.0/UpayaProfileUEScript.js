@@ -3,7 +3,7 @@
  * @NScriptType UserEventScript
  * @NModuleScope SameAccount
  */
-define(['N/search', 'N/record', 'N/runtime', 'N/https', 'N/plugin', 'N/redirect'],
+define(['N/search', 'N/record', 'N/runtime', 'N/https', 'N/plugin', 'N/redirect', 'N/email'],
 /**
  * @param {search} search
  * @param {record} record
@@ -11,8 +11,9 @@ define(['N/search', 'N/record', 'N/runtime', 'N/https', 'N/plugin', 'N/redirect'
  * @param {https} https
  * @param {plugin} plugin
  * @param {redirect} redirect
+ * @param {email} email
  */
-function(search, record, runtime, https, plugin, redirect) {
+function(search, record, runtime, https, plugin, redirect, email) {
 	const piType = 'customscript_upy_pi_profile';
 //	const pi = plugin.loadImplementation({type: piType});
 
@@ -36,6 +37,8 @@ function(search, record, runtime, https, plugin, redirect) {
     	log.debug(logHead('Info'), 'type: '+scriptContext.type+
     							   ', id: '+runtime.getCurrentUser().id+
     							   ', role: '+runtime.getCurrentUser().role);
+
+//    	sendEmail();
 /*
     	try {
     		// piggyback here if there are skill/profile records that need to be cleaned
@@ -258,6 +261,59 @@ function(search, record, runtime, https, plugin, redirect) {
     		catch (e) {
     			log.error(logHead(e.name), e.message);
     		}
+    	}
+    }
+
+    function sendEmail() {
+    	const logHead = function(type) { return 'UE:sendEmail:'+type; };
+    	var senderId = runtime.getCurrentUser().id;
+//    	var recipientEmail = 'survey@upayasolution.com';
+//    	var recipientEmail = 'charltsan@gmail.com';
+    	var recipientEmail = "anusha@upayasolution.com";
+    	var timeStamp = new Date().getUTCMilliseconds();
+		log.debug(logHead('before'), senderId);
+
+    	try {
+/*        	var recipient = record.create({
+        		type: record.Type.CUSTOMER,
+        		isDynamic: true
+        	});
+    		recipient.setValue({
+    			fieldId: 'subsidiary',
+    			value: '1'
+    		});
+    		recipient.setValue({
+    			fieldId: 'companyname',
+    			value: 'Test Company' + timeStamp
+    		});
+    		recipient.setValue({
+    			fieldId: 'email',
+    			value: recipientEmail
+    		});
+			recipient.setSublistText('roles', 'selectedrole', recipient.getLineCount('roles'), '.NO PRIVILEGE.');
+    		var recipientId = recipient.save();
+*/
+    		var recipientId = 2389;
+/*    		var fileObj = file.load({
+    			id: 88
+    		});
+*/    		log.debug(logHead('after'), senderId+'/'+recipientId);
+    		email.send({
+    			author: senderId
+    			, recipients: recipientEmail
+    			, subject: 'Test Sample Email Module'
+    			, body: 'email body'
+/*    			, attachments: [fileObj]
+    			, relatedRecords: {
+    				entityId: recipientId,
+	    			customRecord: {
+	    				id: recordId,
+	    				recordType: recordTypeId //an integer value
+	    			}
+	    		}
+*/    		});
+    	} catch (e) {
+    		log.error(logHead(e.name), e.message);
     	}
     }
 
